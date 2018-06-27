@@ -76,7 +76,7 @@ public class ListDemo {
 	
 	// 当Bean中的list包含的对象是抽象的父类的时候序列化和反序列化的案例
 	// 和上面的测试用例一样，在序列化的时候照样不能序列化子类的扩展属性，但是反序列化的时候报错，不能反序列化绑定到一个抽象的类
-	// 为了解决这个问题，我们在抽象父类中加上注解，问题就得到了结局
+	// 为了解决这个问题，我们在抽象父类中加上注解，问题就得到了解决
 	@Test
 	public void testBeanToJson4() throws JsonGenerationException, JsonMappingException, IOException {
 		Cat3 tom3 = new Cat3("tom", 6, "UK");
