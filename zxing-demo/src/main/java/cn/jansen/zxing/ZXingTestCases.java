@@ -25,6 +25,7 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
+// 生成及解析简单的二维码
 public class ZXingTestCases {
 	
 	// 定义输出二维码图片的大小
