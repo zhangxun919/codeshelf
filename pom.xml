@@ -38,5 +38,6 @@
 		<module>gason-demo</module>
 		<module>okhttp-demo</module>
     <module>javamail-demo</module>
+    <module>zxing-demo</module>
   </modules>
 </project>
