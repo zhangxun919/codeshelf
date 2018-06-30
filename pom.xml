@@ -39,5 +39,6 @@
 		<module>okhttp-demo</module>
     <module>javamail-demo</module>
     <module>zxing-demo</module>
+    <module>thumbnailator-demo</module>
   </modules>
 </project>
