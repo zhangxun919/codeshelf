@@ -4,14 +4,18 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 public class AnnotationDemo {
 	
@@ -38,6 +42,19 @@ public class AnnotationDemo {
 		// 我们可以使用map和@JsonAnyGetter和@JsonAnySetter来保存其它的属性
 		Zoo2 zoo = mapper.readValue(new FileReader("zoo2.json"), Zoo2.class);
 		System.out.println(zoo);
+	}
+	
+	@Test
+	public void testBeanToJsonWithCommAnnotation() throws JsonGenerationException, JsonMappingException, IOException {
+		// 常用的几个注解：@JsonIgnoreProperties(在类级别上定义需要忽略的属性)、@JsonIgnore、@JsonFormat、@JsonInclude
+		Zoo3 zoo = new Zoo3();
+		zoo.setName("上海野生动物园");
+		zoo.setLocation("上海市浦东新区");
+		//zoo.setOfficer("张三");
+		zoo.setStartDate(new Date());
+		// 让控制台输出的Json数据美观
+		mapper.configure(SerializationFeature.INDENT_OUTPUT, Boolean.TRUE);
+		mapper.writeValue(System.out, zoo);
 	}
 	
 	
