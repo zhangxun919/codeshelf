@@ -6,6 +6,11 @@
 	<!-- 加载properties中配置的JDBC连接信息 -->
 	<properties resource="db.properties"></properties>
 	
+	<settings>
+		<!-- 设置在控制台打印执行的SQL -->
+		<setting name="logImpl" value="STDOUT_LOGGING"/>
+	</settings>
+	
 	<typeAliases>
 		<!-- 自定义别名 -->
 		<!-- <typeAlias type="cn.jansen.pojo.User" alias="user"/> -->
@@ -36,6 +41,7 @@
 	<mappers>
 		<!-- 使用配置文件的mapper -->
 		<mapper resource="mapper/userMapper.xml" />
+		<mapper resource="mapper/dynamicUserMapper.xml" />
 		<!-- 使用注解的mapper -->
 		<mapper class="cn.jansen.mapper.UserMapper"/>
 	</mappers>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.jansen.dynamicUserMapper">
+
+	<!-- 下面是定义的经常使用的sql片段 -->
+	<sql id="queryValues">
+		user_id userId, user_name userName, user_gender
+		userGender,
+		birthdate, address from user
+	</sql>
+
+	<select id="getUser" parameterType="java.util.Map"
+		resultType="user">
+		select user_id userId, user_name userName, user_gender
+		userGender,
+		birthdate, address from user
+		<!-- where标签会视情况自动加上where关键字，并去除后面多余的and和or -->
+		<where>
+			<if test="userName != null">
+				user_name = #{userName}
+			</if>
+			<if test="userGender != null">
+				and user_gender = #{userGender}
+			</if>
+		</where>
+	</select>
+
+	<update id="updateUser" parameterType="java.util.Map">
+		update user
+		<set>
+			<if test="userName != null">
+				user_name = #{userName},
+			</if>
+			<if test="userGender != null">
+				user_gender = #{userGender}
+			</if>
+		</set>
+		where user_id = #{userId}
+	</update>
+
+	<select id="getUser2" parameterType="java.util.Map"
+		resultType="user">
+		select user_id userId, user_name userName, user_gender
+		userGender,
+		birthdate, address from user
+		<!-- where标签会视情况自动加上where关键字，并去除后面多余的and和or -->
+		<where>
+			<!-- choose标签决定了下面的条件只能选择其一 -->
+			<choose>
+				<when test="userName != null">
+					user_name = #{userName}
+				</when>
+				<when test="userGender != null">
+					user_gender = #{userGender}
+				</when>
+				<otherwise>
+					user_id = #{userId}
+				</otherwise>
+			</choose>
+		</where>
+	</select>
+
+	<!-- 下面的代码在功能效果上和getUser完全一样 -->
+	<select id="getUser3" parameterType="java.util.Map"
+		resultType="user">
+		select user_id userId, user_name userName, user_gender
+		userGender,
+		birthdate, address from user
+		<!-- trim中where表示这段代码的前缀，prefixOverrides表示需要去掉的第一个and 或者 or -->
+		<trim prefix="where" prefixOverrides="and | or">
+			<if test="userName != null">
+				and user_name = #{userName}
+			</if>
+			<if test="userGender != null">
+				and user_gender = #{userGender}
+			</if>
+		</trim>
+	</select>
+
+	<!-- 下面的代码在功能效果上和updateUser完全一样 -->
+	<update id="updateUser2" parameterType="java.util.Map">
+		update user
+		<!-- trim中where表示这段代码的前缀，suffixOverrides表示需要去掉的最后一个逗号 -->
+		<trim prefix="set" suffixOverrides=",">
+			<if test="userName != null">
+				user_name = #{userName},
+			</if>
+			<if test="userGender != null">
+				user_gender = #{userGender},
+			</if>
+		</trim>
+		where user_id = #{userId}
+	</update>
+
+	<select id="getUser4" parameterType="java.util.Map"
+		resultType="user">
+		select
+		<include refid="queryValues"></include>
+		where user_id = #{userId}
+	</select>
+
+	<select id="getUser5" parameterType="java.util.List"
+		resultType="user">
+		select
+		<include refid="queryValues"></include>
+		where user_id in
+		<!-- collection中是需要迭代的参数集合类型，item是迭代的每个值 -->
+		<foreach collection="list" item="id" open="(" close=")" separator=",">
+			#{id}
+		</foreach>
+	</select>
+
+</mapper>
