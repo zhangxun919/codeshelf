@@ -10,7 +10,7 @@
 		userGender, birthdate, address from user where user_id = #{userId}
 	</select>
 
-	<select id="getAllUsers" resultType="cn.jansen.pojo.User">
+	<select id="getAllUsers" resultType="user">
 		select user_id userId,
 		user_name userName, user_gender
 		userGender, birthdate, address from
