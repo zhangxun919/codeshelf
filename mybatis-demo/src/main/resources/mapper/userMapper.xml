@@ -33,5 +33,26 @@
 		delete from user where
 		user_id = #{userId}
 	</delete>
+	
+	<!-- 返回自增主键的insert -->
+	<insert id="insertUserAuto" parameterType="cn.jansen.pojo.User">
+		<!-- keyProperty对应User中的属性，resultType代表返回的类型 -->
+		<selectKey keyProperty="userId" resultType="int" order="AFTER">
+			select LAST_INSERT_ID()
+		</selectKey>
+		insert into user(user_name,
+		user_gender, birthdate, address) values(#{userName}, #{userGender},
+		#{birthdate}, #{address})
+	</insert>
+	
+	<!-- 返回自定义主键的insert -->
+	<insert id="insertUserManual" parameterType="cn.jansen.pojo.User">
+		<selectKey keyProperty="userId" resultType="string" order="BEFORE">
+			select UUID()
+		</selectKey>
+		insert into user(user_name,
+		user_gender, birthdate, address) values(#{userName}, #{userGender},
+		#{birthdate}, #{address})
+	</insert>
 
 </mapper>
