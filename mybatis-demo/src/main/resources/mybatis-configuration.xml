@@ -17,6 +17,9 @@
 	</environments>
 	
 	<mappers>
+		<!-- 使用配置文件的mapper -->
 		<mapper resource="mapper/userMapper.xml" />
+		<!-- 使用注解的mapper -->
+		<mapper class="cn.jansen.mapper.UserMapper"/>
 	</mappers>
 </configuration>
