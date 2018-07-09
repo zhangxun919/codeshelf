@@ -40,5 +40,6 @@
     <module>javamail-demo</module>
     <module>zxing-demo</module>
     <module>thumbnailator-demo</module>
+    <module>mybatis-demo</module>
   </modules>
 </project>
