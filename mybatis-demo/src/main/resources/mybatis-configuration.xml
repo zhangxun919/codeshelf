@@ -42,6 +42,7 @@
 		<!-- 使用配置文件的mapper -->
 		<mapper resource="mapper/userMapper.xml" />
 		<mapper resource="mapper/dynamicUserMapper.xml" />
+		<mapper resource="mapper/relationMapper.xml" />
 		<!-- 使用注解的mapper -->
 		<mapper class="cn.jansen.mapper.UserMapper"/>
 	</mappers>

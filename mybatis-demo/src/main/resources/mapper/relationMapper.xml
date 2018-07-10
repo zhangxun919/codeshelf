@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.jansen.relationMapper">
+
+	<!-- 以下三种方式在功能上是等价的，其中方式1和方式3在实现方式上类似，
+	都是一次性地执行联合查询SQL，将所有字段查出来之后反序列化；而第二种方式是执行
+	了两次查询的SQL，分别进行单独的查询。 
+	-->
+
+	<!-- 一对多关系演示1 -->
+	<select id="getOrderById" parameterType="int" resultMap="orderUserMap">
+		select * from orders o join user u on u.user_id = o.user_id where o.order_id = #{orderId}
+	</select>
+	<resultMap type="cn.jansen.pojo.Order" id="orderUserMap">
+		<id column="order_id" property="orderId"/>
+		<result column="user_id" property="userId"/>
+		<result column="price" property="price"/>
+		<association property="user" javaType="cn.jansen.pojo.User">
+			<id column="user_id" property="userId"/>
+			<id column="user_name" property="userName"/>
+			<id column="user_gender" property="userGender"/>
+			<id column="birthdate" property="birthdate"/>
+			<id column="address" property="address"/>
+		</association>
+	</resultMap>
+	
+	<!-- 一对多关系演示2 -->
+	<select id="getOrderById2" parameterType="int" resultMap="orderUserMap2">
+		select * from orders where order_id = #{orderId}
+	</select>
+	<resultMap type="cn.jansen.pojo.Order" id="orderUserMap2">
+		<id column="order_id" property="orderId"/>
+		<result column="user_id" property="userId"/>
+		<result column="price" property="price"/>
+		<association property="user" column="user_id" select="getUserByUserId">
+		</association>
+	</resultMap>
+	<select id="getUserByUserId" parameterType="int" resultType="cn.jansen.pojo.User">
+		select user_id userId, user_name userName, user_gender userGender, birthdate, address from user where user_id = #{userId}
+	</select>
+	
+	<!-- 一对多关系演示3 -->
+	<select id="getOrderById3" parameterType="int" resultMap="orderUserMap3">
+		select * from orders o join user u on u.user_id = o.user_id where o.order_id = #{orderId}
+	</select>
+	<resultMap type="cn.jansen.pojo.Order" id="orderUserMap3">
+		<id column="order_id" property="orderId"/>
+		<result column="user_id" property="userId"/>
+		<result column="price" property="price"/>
+		<association property="user" resultMap="userMap">
+		</association>
+	</resultMap>
+	<resultMap type="cn.jansen.pojo.User" id="userMap">
+		<id column="user_id" property="userId"/>
+		<result column="user_name" property="userName"/>
+		<result column="user_gender" property="userGender"/>
+		<result column="birthdate" property="birthdate"/>
+		<result column="address" property="address"/>
+	</resultMap>
+
+</mapper>
