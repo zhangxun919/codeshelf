@@ -26,21 +26,21 @@ public class RelationDemoTest {
 	}
 	
 	@Test
-	public void testOneToMany() {
+	public void testOneToOne() {
 		Integer orderId = 1;
 		Order order = session.selectOne("cn.jansen.relationMapper.getOrderById", orderId);
 		System.out.println(order);
 	}
 	
 	@Test
-	public void testOneToMany2() {
+	public void testOneToOne2() {
 		Integer orderId = 1;
 		Order order = session.selectOne("cn.jansen.relationMapper.getOrderById2", orderId);
 		System.out.println(order);
 	}
 	
 	@Test
-	public void testOneToMany3() {
+	public void testOneToOne3() {
 		Integer orderId = 1;
 		Order order = session.selectOne("cn.jansen.relationMapper.getOrderById3", orderId);
 		System.out.println(order);

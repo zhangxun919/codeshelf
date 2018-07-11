@@ -11,7 +11,7 @@
 
 	<!-- 一对多关系演示1 -->
 	<select id="getOrderById" parameterType="int" resultMap="orderUserMap">
-		select * from orders o join user u on u.user_id = o.user_id where o.order_id = #{orderId}
+		select * from orders o join user u on u.user_id = o.user_id where o.order_id = #{orderId} limit 1
 	</select>
 	<resultMap type="cn.jansen.pojo.Order" id="orderUserMap">
 		<id column="order_id" property="orderId"/>
@@ -28,7 +28,7 @@
 	
 	<!-- 一对多关系演示2 -->
 	<select id="getOrderById2" parameterType="int" resultMap="orderUserMap2">
-		select * from orders where order_id = #{orderId}
+		select * from orders where order_id = #{orderId} limit 1
 	</select>
 	<resultMap type="cn.jansen.pojo.Order" id="orderUserMap2">
 		<id column="order_id" property="orderId"/>
@@ -38,12 +38,12 @@
 		</association>
 	</resultMap>
 	<select id="getUserByUserId" parameterType="int" resultType="cn.jansen.pojo.User">
-		select user_id userId, user_name userName, user_gender userGender, birthdate, address from user where user_id = #{userId}
+		select user_id userId, user_name userName, user_gender userGender, birthdate, address from user where user_id = #{userId} limit 1
 	</select>
 	
 	<!-- 一对多关系演示3 -->
 	<select id="getOrderById3" parameterType="int" resultMap="orderUserMap3">
-		select * from orders o join user u on u.user_id = o.user_id where o.order_id = #{orderId}
+		select * from orders o join user u on u.user_id = o.user_id where o.order_id = #{orderId} limit 1
 	</select>
 	<resultMap type="cn.jansen.pojo.Order" id="orderUserMap3">
 		<id column="order_id" property="orderId"/>
