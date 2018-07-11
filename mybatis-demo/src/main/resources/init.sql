@@ -9,3 +9,7 @@ insert into user(user_name, user_gender, birthdate, address) values('mary', 'fem
 create table orders(order_id int(20) primary key auto_increment, user_id int(20), price double);
 
 insert into orders(user_id, price) values(1, 55.55);
+
+insert into orders(user_id, price) values(1, 33.33);
+
+insert into orders(user_id, price) values(2, 22.22);
