@@ -87,4 +87,25 @@
 		</collection>
 	</resultMap>
 
+	<!-- 多对多关系演示 -->
+	<select id="getUserByRoleId" resultMap="roleUserMap">
+		SELECT
+		*
+		FROM
+		user_role ur
+		JOIN USER u ON u.user_id = ur.user_id
+		JOIN roles r ON r.role_id = ur.role_id
+	</select>
+	<resultMap type="cn.jansen.pojo.RoleUser" id="roleUserMap">
+		<id column="user_id" property="userId" />
+		<result column="user_name" property="userName" />
+		<result column="user_gender" property="userGender" />
+		<result column="birthdate" property="birthdate" />
+		<result column="address" property="address" />
+		<collection property="roles" ofType="cn.jansen.pojo.Role">
+			<id column="role_id" property="roleId" />
+			<result column="role_name" property="roleName" />
+		</collection>
+	</resultMap>
+
 </mapper>
